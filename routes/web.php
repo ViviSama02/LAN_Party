@@ -24,3 +24,5 @@ Route::get('/liste', function () {
 Route::get('/inscription', function () {
     return view('utilisateur/inscription');
 });
+
+Auth::routes();

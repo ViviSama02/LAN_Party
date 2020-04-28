@@ -15,6 +15,9 @@ class CreateJeu extends Migration
     {
         Schema::create('jeu', function (Blueprint $table) {
             $table->id();
+            $table->string('titre_jeu');
+            /*pour le genre, creer une entite*/
+            $table->string('genre');
             $table->timestamps();
         });
     }

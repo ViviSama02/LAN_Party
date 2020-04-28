@@ -15,6 +15,7 @@ class CreateSalle extends Migration
     {
         Schema::create('salle', function (Blueprint $table) {
             $table->id();
+            $table->string('nom_salle');
             $table->timestamps();
         });
     }

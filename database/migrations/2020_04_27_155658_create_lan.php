@@ -15,6 +15,7 @@ class CreateLan extends Migration
     {
         Schema::create('lan', function (Blueprint $table) {
             $table->id();
+            $table->string('nom_LAN');
             $table->timestamps();
         });
     }
@@ -26,6 +27,6 @@ class CreateLan extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('_lan');
+        Schema::dropIfExists('lan');
     }
 }
