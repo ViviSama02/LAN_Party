@@ -14,5 +14,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('accueil');
+});
+
+Route::get('/liste', function () {
+    return view('lans/liste_lan');
+});
+
+Route::get('/inscription', function () {
+    return view('utilisateur/inscription');
 });

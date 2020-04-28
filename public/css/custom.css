@@ -1,0 +1,17 @@
+.centre{
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+}
+
+.shadow-top{
+    -moz-box-shadow: 0 -7px 5px 0px rgba(0,0,0,.2), 0 -5px 5px 0 rgba(0,0,0,.14), 0 -3px 3px 0 rgba(0,0,0,.1);
+    -webkit-box-shadow: 0 -7px 5px 0px rgba(0,0,0,.2), 0 -5px 5px 0 rgba(0,0,0,.14), 0 -3px 3px 0 rgba(0,0,0,.1);
+    box-shadow: 0 -7px 5px 0px rgba(0,0,0,.2), 0 -5px 5px 0 rgba(0,0,0,.15), 0 -3px 3px 0 rgba(0,0,0,.1);
+}
+
+.shadow{
+    -moz-box-shadow: 0 7px 5px 0px rgba(0,0,0,.2), 0 5px 5px 0 rgba(0,0,0,.14), 0 3px 3px 0 rgba(0,0,0,.1);
+    -webkit-box-shadow: 0 7px 5px 0px rgba(0,0,0,.2), 0 5px 5px 0 rgba(0,0,0,.14), 0 3px 3px 0 rgba(0,0,0,.1);
+    box-shadow: 0 7px 5px 0px rgba(0,0,0,.2), 0 5px 5px 0 rgba(0,0,0,.15), 0 3px 3px 0 rgba(0,0,0,.10);
+}
