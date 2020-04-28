@@ -17,7 +17,8 @@ class CreateTache extends Migration
         Schema::create('tache', function (Blueprint $table) {
             $table->id();
             $table->string('intitule_tache');
-            $table->timestamps();
+            $table->timestamps('date_debut');
+            $table->timestamps('date_fin');
         });
     }
 
@@ -28,6 +29,6 @@ class CreateTache extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('_tache');
+        Schema::dropIfExists('tache');
     }
 }

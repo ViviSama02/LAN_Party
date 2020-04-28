@@ -15,6 +15,7 @@ class CreateBatiment extends Migration
     {
         Schema::create('batiment', function (Blueprint $table) {
             $table->id();
+            $table->string('nom_batiment');
             $table->timestamps();
         });
     }
