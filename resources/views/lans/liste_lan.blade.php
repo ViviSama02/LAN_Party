@@ -1,6 +1,6 @@
-@extends('global_template')
+@extends('layouts.app')
 
-@section('contenu')
+@section('content')
 <div class="container" style="padding:20px">
     <div class="row">
         <h1 class="title">Liste des LANs à venir :</h1>

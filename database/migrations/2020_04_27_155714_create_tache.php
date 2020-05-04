@@ -17,8 +17,8 @@ class CreateTache extends Migration
         Schema::create('tache', function (Blueprint $table) {
             $table->id();
             $table->string('intitule_tache');
-            $table->timestamps('date_debut');
-            $table->timestamps('date_fin');
+            $table->timestamp('date_debut');
+            $table->timestamp('date_fin');
         });
     }
 

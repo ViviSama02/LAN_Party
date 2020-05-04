@@ -1,6 +1,7 @@
-@extends('global_template')
+@extends('layouts.app')
+@section('style', 'py-0')
 
-@section('contenu')
+@section('content')
 <div class="bg-primary text-light" style="height: 250px;">
     <div class="container">
         <div class="row">

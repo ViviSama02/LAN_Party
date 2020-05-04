@@ -17,11 +17,17 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <!-- Commenté car apparemment la couleur primaire est noir et non bleu -->
+    <!-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> -->
+
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
+
+
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-dark bg-primary shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
@@ -33,7 +39,12 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-
+                        <li class="navbar-item">
+                            <a class="nav-link" href="">Accueil</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/liste">Liste des LANs</a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -72,7 +83,7 @@
             </div>
         </nav>
 
-        <main class="py-4">
+        <main class="@yield('style', 'py-4')">
             @yield('content')
         </main>
     </div>
