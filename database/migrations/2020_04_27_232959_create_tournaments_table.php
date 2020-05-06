@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTache extends Migration
+class CreateTournamentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateTache extends Migration
      */
     public function up()
     {
-      /*Complete all*/
-        Schema::create('tache', function (Blueprint $table) {
+        Schema::create('tournaments', function (Blueprint $table) {
             $table->id();
-            $table->string('intitule_tache');
-            $table->timestamp('date_debut');
-            $table->timestamp('date_fin');
+            $table->timestamps();
+            $table->string('nom');
+            $table->foreignId('lan_id')->constrained();
+            $table->foreignId('jeu_id')->constrained();
         });
     }
 
@@ -29,6 +29,6 @@ class CreateTache extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tache');
+        Schema::dropIfExists('tournaments');
     }
 }

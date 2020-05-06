@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTache extends Migration
+class CreatePasswordResetsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class CreateTache extends Migration
      */
     public function up()
     {
-      /*Complete all*/
-        Schema::create('tache', function (Blueprint $table) {
-            $table->id();
-            $table->string('intitule_tache');
-            $table->timestamp('date_debut');
-            $table->timestamp('date_fin');
+        Schema::create('password_resets', function (Blueprint $table) {
+            $table->string('email')->index();
+            $table->string('token');
+            $table->timestamp('created_at')->nullable();
         });
     }
 
@@ -29,6 +27,6 @@ class CreateTache extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tache');
+        Schema::dropIfExists('password_resets');
     }
 }

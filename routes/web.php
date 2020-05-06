@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\LANController;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,8 +15,25 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+/*Route::get('/', function () {
+    return view('accueil');
+});*/
+
+/*Route::get('/liste', function () {
+    return view('lans/liste_lan');
 });
 
+Route::get('/inscription', function () {
+    return view('utilisateur/inscription');
+});*/
+
+
+// Accueil
+Route::redirect(RouteServiceProvider::HOME, '/');
+Route::get('/', 'HomeController@index');
+Route::get('/dashboard', 'HomeController@dashboard');
+
+// Routes pour l'authentification
 Auth::routes();
+
+Route::resource('lan', 'LANController');

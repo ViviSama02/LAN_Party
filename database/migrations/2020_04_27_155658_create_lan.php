@@ -15,7 +15,8 @@ class CreateLan extends Migration
     {
         Schema::create('lan', function (Blueprint $table) {
             $table->id();
-            $table->string('nom_LAN');
+            $table->string('nom');
+            $table->string('info');
             $table->timestamps();
         });
     }
