@@ -1,5 +1,4 @@
 @extends('layouts.app')
-@section('style', 'py-0')
 
 @section('content')
 <div class="bg-primary text-light" style="height: 200px;">

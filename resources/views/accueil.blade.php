@@ -1,5 +1,4 @@
 @extends('layouts.app')
-@section('style', 'py-0')
 
 @section('content')
 <div class="bg-primary text-light" style="height: 250px;">
@@ -8,7 +7,7 @@
             <h1 class="title centre" style="margin-top: 50px;">Toutes les LANs au même endroit</h1>
         </div>
         <div class="row">
-            <a class="btn btn-secondary centre" href="/liste">Voir les LANs</a>
+            <a class="btn btn-secondary centre" href="{{ route('lan.index') }}">Voir les LANs</a>
         </div>
     </div>
 </div>

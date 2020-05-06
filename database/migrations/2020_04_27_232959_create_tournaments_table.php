@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLan extends Migration
+class CreateTournamentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateLan extends Migration
      */
     public function up()
     {
-        Schema::create('lan', function (Blueprint $table) {
+        Schema::create('tournaments', function (Blueprint $table) {
             $table->id();
-            $table->string('nom');
-            $table->string('info');
             $table->timestamps();
+            $table->string('nom');
+            $table->foreignId('lan_id')->constrained();
+            $table->foreignId('jeu_id')->constrained();
         });
     }
 
@@ -28,6 +29,6 @@ class CreateLan extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('lan');
+        Schema::dropIfExists('tournaments');
     }
 }

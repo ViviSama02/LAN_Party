@@ -40,10 +40,10 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         <li class="navbar-item">
-                            <a class="nav-link" href="">Accueil</a>
+                            <a class="nav-link" href="/">Accueil</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/liste">Liste des LANs</a>
+                            <a class="nav-link" href="{{ route('lan.index') }}">Liste des LANs</a>
                         </li>
                     </ul>
 
@@ -83,7 +83,7 @@
             </div>
         </nav>
 
-        <main class="@yield('style', 'py-4')">
+        <main>
             @yield('content')
         </main>
     </div>
