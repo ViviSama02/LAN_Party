@@ -36,4 +36,6 @@ Route::get('/dashboard', 'HomeController@dashboard');
 // Routes pour l'authentification
 Auth::routes();
 
+Route::post('lan/{lan}/register', 'LANController@register')->name('lan.register');
+Route::post('lan/{lan}/unregister', 'LANController@unregister')->name('lan.unregister');
 Route::resource('lan', 'LANController');

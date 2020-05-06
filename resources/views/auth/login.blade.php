@@ -71,6 +71,22 @@
                                         {{ __('Forgot Your Password?') }}
                                     </a>
                                 @endif
+
+
+                                @if(config('app.debug'))
+                                    <button type="button" id="fill_admin" class="text-muted btn">Admin</button>
+                                    <script>
+                                        function fill_admin()
+                                        {
+                                            document.getElementById('email').value = 'admin@admin.com';
+                                            document.getElementById('password').value = 'admin';
+                                        }
+
+                                        window.addEventListener('load', function() {
+                                            document.getElementById('fill_admin').addEventListener('click', fill_admin);
+                                        });
+                                    </script>
+                                @endif
                             </div>
                         </div>
                     </form>

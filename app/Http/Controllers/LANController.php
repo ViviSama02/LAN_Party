@@ -2,11 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\LAN;
+use App\Lan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class LANController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->only(['register', 'unregister']);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +21,7 @@ class LANController extends Controller
      */
     public function index()
     {
-        $lans = LAN::all();
+        $lans = Lan::all();
         return view('lans.liste_lan', compact('lans'));
     }
 
@@ -42,10 +49,10 @@ class LANController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\LAN  $lAN
+     * @param  \App\Lan  $lAN
      * @return \Illuminate\Http\Response
      */
-    public function show(LAN $lan)
+    public function show(Lan $lan)
     {
         return view('lans.fiche_lan', compact('lan'));
     }
@@ -53,34 +60,79 @@ class LANController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\LAN  $lAN
+     * @param  \App\Lan  $lAN
      * @return \Illuminate\Http\Response
      */
-    public function edit(LAN $lan)
+    public function edit(Lan $lan)
     {
-        return view('lans/fiche_lan', compact('lan'));
+        return view('lans/modifier_lan', compact('lan'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\LAN  $lAN
+     * @param  \App\Lan  $lAN
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, LAN $lAN)
+    public function update(Request $request, Lan $lan)
     {
-        //
+        $this->validate($request, [
+            'nom' => ['required', Rule::unique('lans')->ignore($lan), 'max:255'],
+            'info' => 'required|max:5000',
+            'max' => 'required|integer|min:0|max:10000',
+            'date' => ['required', 'date_format:"Y-m-d\TH:i"']
+        ]);
+
+        $lan->update($request->all());
+        return redirect()->route('lan.show', $lan);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\LAN  $lAN
+     * @param  \App\Lan  $lAN
      * @return \Illuminate\Http\Response
      */
-    public function destroy(LAN $lAN)
+    public function destroy(Lan $lan)
     {
         //
+    }
+
+    /**
+     * Appelé quand un utilisateur appuie sur le bouton "s'insrire" d'une LAN
+     */
+    public function register(Lan $lan)
+    {
+        if($lan->users->contains(Auth::user())) {
+            return redirect()->back()
+                ->with('status', 'Vous ne pouvez pas vous inscrire à une LAN où vous êtes déjà inscrit!')
+                ->with('status-type', 'danger');
+        }
+
+        $lan->users()->save(Auth::user());
+
+
+        return redirect()->back()
+            ->with('status', 'Inscrit avec succès à la LAN')
+            ->with('status-type', 'success');
+    }
+
+    /**
+     * Appelé quand un utilisateur appuie sur le bouton "se désinscrire" d'une LAN
+     */
+    public function unregister(Lan $lan)
+    {
+        if(!$lan->users->contains(Auth::user())) {
+            return redirect()->back()
+                ->with('status', "Vous ne pouvez pas vous désinscrire d'une LAN où vous n'êtes pas inscrit!")
+                ->with('status-type', 'danger');
+        }
+
+        $lan->users()->detach(Auth::user());
+
+        return redirect()->back()
+            ->with('status', 'Désinscrit avec succès à la LAN')
+            ->with('status-type', 'success');
     }
 }
