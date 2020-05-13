@@ -16,8 +16,10 @@ class CreateJeu extends Migration
         Schema::create('jeu', function (Blueprint $table) {
             $table->id();
             $table->string('titre_jeu');
-            /*pour le genre, creer une entite*/
-            $table->string('genre');
+            $table->foreignId('intitule_genre')->constrained('genre');
+            /* piste
+            $table->string('intitule_genre')->unsigned;
+            $table->foreign('intitule_genre')->references('intitule_genre')->on('genre');*/
             $table->timestamps();
         });
     }
