@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateJeu extends Migration
+class CreateGame extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,15 @@ class CreateJeu extends Migration
      */
     public function up()
     {
-        Schema::create('jeu', function (Blueprint $table) {
+        Schema::create('game', function (Blueprint $table) {
             $table->id();
             $table->string('titre_jeu');
-            $table->foreignId('intitule_genre')->constrained('genre');
-            /* piste
-            $table->string('intitule_genre')->unsigned;
-            $table->foreign('intitule_genre')->references('intitule_genre')->on('genre');*/
             $table->timestamps();
+        });
+
+        Schema::table('game', function($table) {
+          $table->unsignedBigInteger('genre_id');
+          $table->foreign('genre_id')->references('id')->on('genre');
         });
     }
 
@@ -31,6 +32,6 @@ class CreateJeu extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('jeu');
+        Schema::dropIfExists('game');
     }
 }
