@@ -17,4 +17,14 @@ class Lan extends Model
     {
         return $this->belongsToMany(User::class);
     }
+
+    public function tournaments()
+    {
+        return $this->hasMany(Tournament::class);
+    }
+
+    public function noMorePlaces(): bool
+    {
+        return $this->users()->count() >= $this->max;
+    }
 }

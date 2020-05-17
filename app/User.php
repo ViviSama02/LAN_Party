@@ -41,4 +41,22 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Lan::class);
     }
+
+    public function tournaments()
+    {
+        return $this->belongsToMany(Tournament::class);
+    }
+
+    public function teams()
+    {
+        return $this->belongsToMany(Team::class)->withPivot('accepte');
+    }
+
+    /**
+     * Récupère l'équipe associée à un tournoi, ou null si l'équipe n'existe pas
+     */
+    public function team(Tournament $tournament): ?Team
+    {
+        return $this->teams()->where('tournament_id', $tournament->id)->first();
+    }
 }

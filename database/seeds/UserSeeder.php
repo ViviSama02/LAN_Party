@@ -14,6 +14,7 @@ class UserSeeder extends Seeder
     {
         DB::table('users')->delete();
         $this->createFakeAdmin();
+        factory(User::class, 500)->create();
     }
 
     protected function createFakeAdmin(string $name = 'admin', string $password = 'admin'): void
