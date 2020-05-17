@@ -13,7 +13,7 @@ class CreateLan extends Migration
      */
     public function up()
     {
-        Schema::create('lans', function (Blueprint $table) {
+        Schema::create('lan', function (Blueprint $table) {
             $table->id();
             $table->string('nom');
             $table->integer('max');

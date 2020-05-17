@@ -14,8 +14,17 @@ class CreateLanUser extends Migration
     public function up()
     {
         Schema::create('lan_user', function (Blueprint $table) {
-            $table->foreignId('lan_id')->constrained();
-            $table->foreignId('user_id')->constrained();
+            $table->id();
+        });
+
+        Schema::table('lan_user', function($table) {
+          $table->unsignedBigInteger('lan_id');
+          $table->foreign('lan_id')->references('id')->on('lan');
+        });
+
+        Schema::table('lan_user', function($table) {
+          $table->unsignedBigInteger('user_id');
+          $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
