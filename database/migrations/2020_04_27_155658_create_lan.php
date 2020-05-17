@@ -18,7 +18,7 @@ class CreateLan extends Migration
             $table->string('nom');
             $table->integer('max');
             $table->dateTime('date');
-            $table->string('info');
+            $table->text('info');
             $table->timestamps();
         });
     }
