@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\RegistrationController;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Route;
 
@@ -36,9 +37,7 @@ Route::get('/dashboard', 'HomeController@dashboard');
 Auth::routes();
 
 
-Route::post('lan/{lan}/register', 'LANController@register')->name('lan.register');
-Route::post('lan/{lan}/unregister', 'LANController@unregister')->name('lan.unregister');
-Route::resource('lan', 'LANController');
+Route::resource('lan', 'LanController');
 
 Route::post('tournament/{tournament}/start', 'TournamentController@start')->name('tournament.start');
 Route::post('lan/{lan}/tournament/{tournament}/register', 'TournamentController@register')->name('lan.tournament.register');
@@ -83,3 +82,5 @@ Route::get('/test', function() {
         }
     }
 });
+
+RegistrationController::routes();

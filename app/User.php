@@ -39,7 +39,7 @@ class User extends Authenticatable
 
     public function lans()
     {
-        return $this->belongsToMany(Lan::class);
+        return $this->hasMany(Lan::class);
     }
 
     public function tournaments()

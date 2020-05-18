@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>@yield('title', config('app.name', 'Laravel'))</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -41,8 +41,13 @@
     <!-- Autres scripts de l'application -->
     @stack('scripts')
 
+    <!-- Affichage des modals -->
+    <script src="{{ asset('js/modals.js') }}" defer></script>
 </head>
 <body>
+    <!-- Modal (pour messages de status et autre -->
+    @include('layouts.modal')
+
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-dark bg-primary shadow-sm">
             <div class="container">

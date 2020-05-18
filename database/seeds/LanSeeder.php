@@ -26,7 +26,7 @@ class LanSeeder extends Seeder
 
     public function createFakeLan()
     {
-        Lan::create([
+        User::all()->random()->lans()->create([
             'nom' => 'Super Lan venez tous !!!',
             'info' => "Y aura surement plein de super informations ici qui permettrons de voir en un coup d'oeil si c'est ce qu'on cherche.",
             'max' => 32,

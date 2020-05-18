@@ -17,6 +17,10 @@ class CreateTournamentsTable extends Migration
             $table->id();
             $table->timestamps();
             $table->string('nom');
+            $table->string('api');
+            $table->bigInteger('tournament');
+            $table->string('url');
+            $table->string('type');
             /*$table->foreignId('lan_id')->constrained('lan');
             $table->foreignId('jeu_id')->constrained('jeu');*/
         });
