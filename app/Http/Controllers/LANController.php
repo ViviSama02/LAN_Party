@@ -110,6 +110,12 @@ class LANController extends Controller
                 ->with('status-type', 'danger');
         }
 
+        if($lan->noMorePlaces()) {
+            return redirect()->back()
+                ->with('status', "Il n'y a plus de places à cette LAN.")
+                ->with('status-type', 'danger');
+        }
+
         $lan->users()->save(Auth::user());
 
 
@@ -133,6 +139,6 @@ class LANController extends Controller
 
         return redirect()->back()
             ->with('status', 'Désinscrit avec succès à la LAN')
-            ->with('status-type', 'success');
+            ->with('status-type', 'warning');
     }
 }
