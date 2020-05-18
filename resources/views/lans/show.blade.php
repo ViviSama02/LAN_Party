@@ -3,7 +3,7 @@
 @section('show')
 <div class="row" style="padding:20px 0">
     <div class="col-md-2">
-        <img src="https://via.placeholder.com/2048" class="card-img" alt="affiche de la lan">
+        <img src="{{ $lan->thumbnail() }}" class="card-img" alt="affiche de la lan">
     </div>
     <div class="col">
         <span class="badge badge-info">{{ $lan->users->count() }}/{{ $lan->max }} Participants</span>

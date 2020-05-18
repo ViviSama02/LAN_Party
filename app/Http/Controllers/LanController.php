@@ -43,6 +43,10 @@ class LanController extends Controller
         $validated = $request->validated();
         $lan = Auth::user()->lans()->create($validated);
 
+        if($request->hasFile('image')) {
+            $lan->saveThumbnail($request->file('image'));
+        }
+
         return redirect()->route('lan.show', $lan)->with('alert', 'LAN créée avec succès');
     }
 
@@ -69,6 +73,10 @@ class LanController extends Controller
     {
         $validated = $request->validated();
         $lan->update($validated);
+
+        if($request->hasFile('image')) {
+            $lan->saveThumbnail($request->file('image'));
+        }
 
         return redirect()->route('lan.show', $lan)->with('alert', 'LAN modifiée avec succès');
     }

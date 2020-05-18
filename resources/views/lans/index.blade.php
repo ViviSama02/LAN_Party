@@ -16,7 +16,7 @@
         <div class="card centre" style="max-width: 900px;">
             <div class="row no-gutters">
                 <div class="col-md-4">
-                    <img src="https://via.placeholder.com/2048" class="card-img" alt="affiche de la lan">
+                    <img src="{{ $lan->thumbnail() }}" class="card-img" alt="affiche de la lan">
                 </div>
                 <div class="col">
                     <div class="card-body h-100">
