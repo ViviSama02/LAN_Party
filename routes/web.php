@@ -86,4 +86,4 @@ Route::get('/test', function() {
     }
 });
 
-/*RegistrationController::routes*/
+RegistrationController::routes();
