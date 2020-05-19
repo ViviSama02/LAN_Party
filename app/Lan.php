@@ -44,7 +44,7 @@ class Lan extends Model
     public function saveThumbnail($image)
     {
         $path = 'storage/' . self::IMAGES_DIRECTORY . '/' . $this->id;
-        
+
         if(Storage::exists($path)) {
             Storage::delete($path);
         }

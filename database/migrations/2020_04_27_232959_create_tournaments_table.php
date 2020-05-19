@@ -22,19 +22,19 @@ class CreateTournamentsTable extends Migration
             $table->string('url');
             $table->string('type');
             /*$table->foreignId('lan_id')->constrained('lan');
-            $table->foreignId('jeu_id')->constrained('jeu');*/
+            $table->foreignId('game_id')->constrained('game');*/
         });
 
 
         Schema::table('tournaments', function($table) {
           $table->unsignedBigInteger('lan_id');
-          $table->foreign('lan_id')->references('id')->on('lan');
+          $table->foreign('lan_id')->references('id')->on('lans');
         });
 
-        /*Schema::table('tournaments', function($table) {
+        Schema::table('tournaments', function($table) {
           $table->unsignedBigInteger('game_id');
           $table->foreign('game_id')->references('id')->on('game');
-        });*/
+        });
     }
 
     /**

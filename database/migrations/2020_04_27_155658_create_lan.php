@@ -15,12 +15,17 @@ class CreateLan extends Migration
     {
         Schema::create('lans', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
+            /*$table->foreignId('user_id')->constrained();*/
             $table->string('nom');
             $table->integer('max');
             $table->dateTime('date');
             $table->text('info');
             $table->timestamps();
+        });
+
+        Schema::table('lans', function($table) {
+          $table->unsignedBigInteger('user_id');
+          $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

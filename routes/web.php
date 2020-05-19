@@ -32,6 +32,9 @@ Route::get('/inscription', function () {
 Route::redirect(RouteServiceProvider::HOME, '/');
 Route::get('/', 'HomeController@index');
 Route::get('/dashboard', 'HomeController@dashboard');
+/*Route::get('/accueil',function(){
+  return view('accueil');
+});*/
 
 // Routes pour l'authentification
 Auth::routes();
@@ -83,4 +86,4 @@ Route::get('/test', function() {
     }
 });
 
-RegistrationController::routes();
+/*RegistrationController::routes*/

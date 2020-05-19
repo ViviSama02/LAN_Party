@@ -28,7 +28,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Tournament::observe(TournamentObserver::class);
-        Team::observe(TeamObserver::class);
+        /*Tournament::observe(TournamentObserver::class);
+        Team::observe(TeamObserver::class);*/
     }
 }
