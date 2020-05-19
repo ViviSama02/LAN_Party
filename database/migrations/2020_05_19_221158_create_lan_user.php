@@ -19,7 +19,7 @@ class CreateLanUser extends Migration
 
         Schema::table('lan_user', function($table) {
             $table->unsignedBigInteger('lan_id');
-            $table->foreign('lan_id')->references('id')->on('lan');
+            $table->foreign('lan_id')->references('id')->on('lans');
         });
 
         Schema::table('lan_user', function($table) {
