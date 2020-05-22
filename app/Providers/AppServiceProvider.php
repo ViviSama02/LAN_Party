@@ -28,7 +28,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        /*Tournament::observe(TournamentObserver::class);
-        Team::observe(TeamObserver::class);*/
+        /**
+         * Permet de mettre à jour le site challonge quand une modification de la base de données est effectuée
+         */
+        Tournament::observe(TournamentObserver::class);
+        Team::observe(TeamObserver::class);
     }
 }

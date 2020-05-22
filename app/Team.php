@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Team extends Model
 {
     protected $fillable = [
-        'nom', 'team'
+        'nom', 'challonge_id'
     ];
 
     public function acceptedUsers()
@@ -42,10 +42,10 @@ class Team extends Model
 
     /**
      * @param User $user Le joueur qui postule à l'équipe
-     * @param bool accepte Si le joueur est d'office accepté dans l'équipe (false pour une demande)
+     * @param bool auto Si le joueur est d'office accepté dans l'équipe (false pour une demande)
      */
-    public function join(User $user, bool $accepte = false)
+    public function join(User $user, bool $auto = false)
     {
-        $this->users()->attach($user, ['accepte' => $accepte]);
+        $this->users()->attach($user, ['accepte' => $auto]);
     }
 }

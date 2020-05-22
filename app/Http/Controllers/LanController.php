@@ -63,7 +63,7 @@ class LanController extends Controller
      */
     public function edit(Lan $lan)
     {
-        return view('lans.create', compact('lan'));
+        return view('lans.edit', compact('lan'));
     }
 
     /**

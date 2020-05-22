@@ -3,15 +3,52 @@
 namespace App\Http\Controllers;
 
 use App\Team;
+use App\Tournament;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 class TeamController extends Controller
 {
+    public static function routes()
+    {
+        $class = 'TeamController';
+        Route::resource('team', $class);
+
+        $action = function($name) use($class) {
+            Route::post('team/{team}/' . $name, $class . '@' . $name)->name('team.' . $name);
+        };
+
+        $action('join');
+        $action('leave');
+        $action('refuse');
+        $action('accept');
+    }
+
     public function __construct()
     {
         $this->middleware('auth');
+    }
+
+    public function create(Request $request)
+    {
+        return view('team.create', [
+            'tournament' => Tournament::findOrFail($request->tournament)
+        ]);
+    }
+
+    public function store(Request $request)
+    {
+        $tournament = Tournament::findOrFail($request->tournament);
+
+        // Créer la team
+        $team = $tournament->teams()->create($request->all());
+
+        // Inscrit l'utilisateur qui a créé la team automatiquement
+        $team->join(Auth::user(), true);
+
+        return redirect()->route('tournament.show', $tournament);
     }
 
     public function edit(Team $team)
@@ -32,9 +69,12 @@ class TeamController extends Controller
         $team->update($request->all());
         $tournament = $team->tournament;
         $lan = $tournament->lan;
-        return redirect()->route('lan.tournament.show', compact('lan', 'tournament'));
+        return redirect()->route('tournament.show', $tournament);
     }
 
+    /**
+     * Accepter une demande à rejoindre une équipe
+     */
     public function accept(Team $team, User $user)
     {
         // Vérifier que l'utilisateur appartient bien à l'équipe
@@ -43,13 +83,16 @@ class TeamController extends Controller
             return abort(403, "Vous n'appartenez pas à l'équipe");
         }
 
-        $team->users()->updateExistingPivot($user->id    , ['accepte' => true], true);
+        $team->users()->updateExistingPivot($user->id, ['accepte' => true], true);
 
         $tournament = $team->tournament;
         $lan = $tournament->lan;
-        return redirect()->route('lan.tournament.show', compact('lan', 'tournament'));
+        return redirect()->route('tournament.show', $tournament);
     }
 
+    /**
+     * Refuser une demande à rejoindre une équipe
+     */
     public function refuse(Team $team, User $user)
     {
         // Vérifier que l'utilisateur appartient bien à l'équipe
@@ -62,9 +105,12 @@ class TeamController extends Controller
 
         $tournament = $team->tournament;
         $lan = $tournament->lan;
-        return redirect()->route('lan.tournament.show', compact('lan', 'tournament'));
+        return redirect()->route('tournament.show', $tournament);
     }
 
+    /**
+     * Demander à rejoindre une équipe
+     */
     public function join(Team $team)
     {
         $user = Auth::user();
@@ -79,12 +125,16 @@ class TeamController extends Controller
 
         $team->join($user);
 
-        return redirect()->route('lan.tournament.show', compact('lan', 'tournament'))
+        return redirect()->route('tournament.show', $tournament)
             ->with('status', "Demande de rejoindre l'équipe envoyée avec succès.")
             ->with('status-type', 'info');
     }
 
-    public function quit(Team $team)
+    /**
+     * Quitter une équipe
+     * Ou annuler une demande de rejoindre une équipe
+     */
+    public function leave(Team $team)
     {
         $user = Auth::user();
         $tournament = $team->tournament;
@@ -98,7 +148,7 @@ class TeamController extends Controller
 
         $team->leave($user);
 
-        return redirect()->route('lan.tournament.show', compact('lan', 'tournament'))
+        return redirect()->route('tournament.show', $tournament)
             ->with('status', 'Équipe quittée avec succès.')
             ->with('status-type', 'info');
     }

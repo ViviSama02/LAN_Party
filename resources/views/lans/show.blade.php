@@ -25,75 +25,15 @@
                 </div>
             @endforeach
 
-            <!-- Bouton pour ajouter un nouveau jeu -->
-
-            @can('update', $lan)
-                <div class="card">
-                    <div class="card-body text-primary p-2">
-                        <a class="btn btn-link link w-100 h-100 p-3 bg-warning" href="{{ route('lan.tournament.create', $lan) }}">
-                            <img class="m-2 w-25 h-25 p-3" src="{{ asset('svg/plus-square.svg') }}" alt="Card image cap">
-                            <h5 class="card-title">
-                                Ajouter un nouveau jeu
-                            </h5>
-                        </a>
-                    </div>
-                </div>
-            @endcan
-
         </div>
 
         <h4 class="my-5 text-center">Tournois lors de cette LAN</h4>
 
         <div clas="container-fluid">
             <div class="row d-flex flex-fill">
-
-                <!-- Liste des tournois lors de cette LAN -->
-
-                @foreach($lan->tournaments as $tournament)
-                    <a class="col-4 my-2 btn" href="{{ route('lan.tournament.show', compact('lan', 'tournament')) }}">
-                        <div class="card shadow">
-                            <img class="card-img-top" src="https://picsum.photos/1024?random={{ uniqid() }}" alt="Card image cap">
-                            <div class="card-body text-primary">
-                                <h5 class="card-title">{{ $tournament->nom }}</h5>
-                            </div>
-                        </div>
-                    </a>
-                @endforeach
-
-                <!-- Bouton pour ajouter un nouveau tournoi -->
-
-                @can('update', $lan)
-                    <div class="col-4 my-2">
-                        <div class="card shadow h-100">
-                            <div class="card-body text-primary p-2 shadow">
-                                <a class="btn btn-success w-100 h-100" href="{{ route('lan.tournament.create', $lan) }}">
-                                    <img class="m-2 w-25 h-25" src="{{ asset('svg/plus-square.svg') }}" alt="Card image cap">
-                                    <h5 class="card-title">
-                                        Ajouter un nouveau tournoi
-                                    </h5>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                @endcan
+                @include('lans.tournaments')
             </div>
         </div>
-
-
-        <!--<div class="">
-            <div class="card align-middle h-100">
-                <div class="card-body text-primary">
-                    <button class="btn btn-primary">
-                        <svg class="bi bi-plus-square-fill card-img-top" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" d="M2 0a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V2a2 2 0 00-2-2H2zm6.5 4a.5.5 0 00-1 0v3.5H4a.5.5 0 000 1h3.5V12a.5.5 0 001 0V8.5H12a.5.5 0 000-1H8.5V4z" clip-rule="evenodd"/>
-                        </svg>
-                        <div>
-                            Ajouter un nouveau tournoi
-                        </div>
-                    </button>
-                </div>
-            </div>
-        </div>!-->
     </div>
 </div>
 @endsection

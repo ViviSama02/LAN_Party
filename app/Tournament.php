@@ -5,9 +5,13 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
+/**
+ * Représente le Tournoi d'une LAN
+ * Les tournois sont gérés par le site challonge grâce à l'API
+ */
 class Tournament extends Model
 {
-    protected $fillable = ['api', 'nom', 'type', 'tournament', 'url'];
+    protected $fillable = ['key', 'nom', 'type', 'challonge_id', 'url'];
 
     use Notifiable;
 
@@ -56,9 +60,12 @@ class Tournament extends Model
         }
     }
 
+    /**
+     * Récupère un outil permettant de communiquer avec l'API challonge pour ce tournoi
+     */
     public function challonge(): Challonge
     {
-        return new Challonge($this->api);
+        return new Challonge($this->key);
     }
 
     /**

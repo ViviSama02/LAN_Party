@@ -16,7 +16,10 @@ class TeamObserver
     {
         $challonge = $team->tournament->challonge();
         $json = $challonge->createParticipant($team);
-        $team->team = $json->id;
+        $team->fill([
+            'challonge_id' => $json->id,
+            'nom' => $json->name
+        ]);
     }
 
     /**

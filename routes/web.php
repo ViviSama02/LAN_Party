@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\RegistrationController;
+use App\Http\Controllers\TeamController;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Route;
 
@@ -39,9 +40,15 @@ Route::get('/dashboard', 'HomeController@dashboard');
 // Routes pour l'authentification
 Auth::routes();
 
+// Routes pour s'inscrire/se désinscrire d'une LAN
+RegistrationController::routes();
+
 
 Route::resource('lan', 'LanController');
+Route::resource('tournament', 'TournamentController');
+TeamController::routes();
 
+/*
 Route::post('tournament/{tournament}/start', 'TournamentController@start')->name('tournament.start');
 Route::post('lan/{lan}/tournament/{tournament}/register', 'TournamentController@register')->name('lan.tournament.register');
 Route::post('lan/{lan}/tournament/{tournament}/unregister', 'TournamentController@unregister')->name('lan.tournament.unregister');
@@ -84,6 +91,4 @@ Route::get('/test', function() {
             echo "<img src='https://images.igdb.com/igdb/image/upload/t_1080p_2x/{$image->image_id}.jpg'>";
         }
     }
-});
-
-RegistrationController::routes();
+});*/

@@ -11,8 +11,8 @@
 
 @section('form')
     <form enctype="multipart/form-data" method="POST" action="{{ $edit ? route('lan.update', $lan) : route('lan.store') }}">
-        @method($edit ? 'PUT' : 'POST')
         @csrf
+        @method($edit ? 'PUT' : 'POST')
 
         <!-- Nom de la LAN -->
 

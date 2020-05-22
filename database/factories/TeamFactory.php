@@ -7,7 +7,7 @@ use Faker\Generator as Faker;
 
 $factory->define(Team::class, function (Faker $faker) {
     return [
-        'team' => 0,
+        'challonge_id' => 0,
         'nom' => $faker->company
     ];
 });

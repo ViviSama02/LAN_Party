@@ -15,8 +15,12 @@
                     <div class="card-header">Créer un nouveau Tournoi pour la LAN <a href="{{ route('lan.show', $lan) }}">{{ $lan->nom }}</a></div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('lan.tournament.store', $lan) }}">
+                        <form method="POST" action="{{ route('tournament.store', $lan) }}">
                             @csrf
+
+                            <!-- ID de la LAN associée (caché, non modifiable) -->
+
+                            <input type="hidden" name="lan" value="{{ $lan->id }}">
 
                             <div class="form-group row">
                                 <label for="nom" class="col-md-4 col-form-label text-md-right">Nom du Tournoi</label>
@@ -33,13 +37,13 @@
                             </div>
 
                             <div class="form-group row">
-                                <label for="api" class="col-md-4 col-form-label text-md-right">Clé d'API <a href="https://challonge.com/fr/settings/developer#">Challonge</a></label>
+                                <label for="key" class="col-md-4 col-form-label text-md-right">Clé d'API <a href="https://challonge.com/fr/settings/developer#">Challonge</a></label>
 
                                 <div class="col-md-6">
-                                    <input id="api" type="password" class="form-control @error('api') is-invalid @enderror" name="api" value="{{ old('api') }}" required>
+                                    <input id="key" type="password" class="form-control @error('key') is-invalid @enderror" name="key" value="{{ old('key') }}" required>
 
-                                    @error('api')
-                                        @foreach($errors->get('api') as $message)
+                                    @error('key')
+                                        @foreach($errors->get('key') as $message)
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>

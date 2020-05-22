@@ -141,7 +141,7 @@ class Challonge
             ]
         ];
 
-        $idTournoi = $team->tournament->tournament;
+        $idTournoi = $team->tournament->challonge_id;
         $json = $this->post("tournaments/$idTournoi/participants", $postData);
         if(!isset($json->participant)) {
             throw new ChallongeException("Erreur interne: champ manquant dans la réponse de l'API");
@@ -184,8 +184,8 @@ class Challonge
             ]
         ];
 
-        $idTournoi = $team->tournament->tournament;
-        $idParticipant = $team->team;
+        $idTournoi = $team->tournament->challonge_id;
+        $idParticipant = $team->challonge_id;
         $json = $this->delete("tournaments/$idTournoi/participants/$idParticipant");
         if(!isset($json->participant)) {
             throw new ChallongeException("Erreur interne: champ manquant dans la réponse de l'API");

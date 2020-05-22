@@ -26,23 +26,23 @@
         @endisset
         <div class="col">
             <div class="float-right">
+
                 @unless(Auth::check() && $tournament->isRegistered(Auth::user()))
-                <form method="POST" action="{{ route('lan.tournament.register', compact('lan', 'tournament')) }}" class="d-inline-block">
+                <form method="GET" action="{{ route('team.create') }}" class="d-inline-block">
                     @csrf
-                    <button type="submit" class="btn btn-success">S'inscrire au tournoi</button>
-                </form>
-                @else
-                <form method="POST" action="{{ route('lan.tournament.unregister', compact('lan', 'tournament')) }}" class="d-inline-block">
-                    @csrf
-                    <button type="submit" class="btn btn-danger">Se désinscrire du tournoi</button>
+
+                    <input type="hidden" name="tournament" value="{{ $tournament->id }}">
+                    <button type="submit" class="btn btn-success">Créer une nouvelle équipe</button>
                 </form>
                 @endif
 
-                <form method="GET" action="{{ route('lan.tournament.edit', compact('lan', 'tournament')) }}" class="d-inline-block">
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-link text-warning">Modifier le tournoi</button>
-                    </div>
-                </form>
+                @can('update', $lan)
+                    <form method="GET" action="{{ route('tournament.edit', $tournament) }}" class="d-inline-block">
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-link text-warning">Modifier le tournoi</button>
+                        </div>
+                    </form>
+                @endcan
             </div>
         </div>
     </div>
@@ -80,6 +80,9 @@
 
                                     if($accepte === null)
                                     {
+                                        // L'utilisateur ne fait pas parti de la team,
+                                        // Et n'a pas demandé à la rejoindre
+
                                         $icon = 'plus';
                                         $status = 'success';
                                         $route = route('team.join', $team);
@@ -87,16 +90,21 @@
                                     }
                                     elseif(!$accepte)
                                     {
+                                        // L'utilisateur a demandé à rejoindre la team,
+                                        // Mais n'a pas encore été refusé ou accepté
+
                                         $icon = 'minus';
                                         $status = 'warning';
-                                        $route = route('team.quit', $team);
+                                        $route = route('team.leave', $team);
                                         $title = "Annuler la demande de rejoindre l'équipe";
                                     }
                                     else
                                     {
+                                        // L'utilisateur fait partie de la team
+
                                         $icon = 'minus';
                                         $status = 'danger';
-                                        $route = route('team.quit', $team);
+                                        $route = route('team.leave', $team);
                                         $title = "Quitter cette équipe";
                                     }
                                     @endphp
