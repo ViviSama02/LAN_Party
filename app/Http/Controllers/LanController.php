@@ -2,91 +2,143 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreLan;
 use App\Lan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
-class LanController extends Controller
+class LANController extends Controller
 {
     public function __construct()
     {
-        $this->authorizeResource(Lan::class, 'lan');
+        $this->middleware('auth')->only(['register', 'unregister']);
     }
 
     /**
-     * Affiche la liste de toutes les LANs
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $now = now();
-        $lans = Lan::where('date', '>=', $now)->orderBy('date')->get();
-        $lansFinies = Lan::where('date', '<', $now)->orderBy('date', 'desc')->get();
-        $lans = $lans->merge($lansFinies);
-        return view('lans.index', compact('lans'));
+        $lans = Lan::all();
+        return view('lans.liste_lan', compact('lans'));
     }
 
     /**
-     * Affiche le formulaire pour créer une nouvelle LAN
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        return view('lans.create');
+        //
     }
 
     /**
-     * Enregistre une nouvelle LAN de l'utilisateur après l'avoir créée via le formulaire
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
      */
-    public function store(StoreLan $request)
+    public function store(Request $request)
     {
-        $validated = $request->validated();
-        $lan = Auth::user()->lans()->create($validated);
-
-        if($request->hasFile('image')) {
-            $lan->saveThumbnail($request->file('image'));
-        }
-
-        return redirect()->route('lan.show', $lan)->with('alert', 'LAN créée avec succès');
+        //
     }
 
     /**
-     * Affiche les informations sur une LAN spécifique
+     * Display the specified resource.
+     *
+     * @param  \App\Lan  $lAN
+     * @return \Illuminate\Http\Response
      */
     public function show(Lan $lan)
     {
-        return view('lans.show', compact('lan'));
+        return view('lans.fiche_lan', compact('lan'));
     }
 
     /**
-     * Edite une LAN déjà créée par le propriétaire de la LAN
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Lan  $lAN
+     * @return \Illuminate\Http\Response
      */
     public function edit(Lan $lan)
     {
-        return view('lans.edit', compact('lan'));
+        return view('lans/modifier_lan', compact('lan'));
     }
 
     /**
-     * Modifie les informations sur une LAN via le formulaire d'édition
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Lan  $lAN
+     * @return \Illuminate\Http\Response
      */
-    public function update(StoreLan $request, Lan $lan)
+    public function update(Request $request, Lan $lan)
     {
-        $validated = $request->validated();
-        $lan->update($validated);
+        $this->validate($request, [
+            'nom' => ['required', Rule::unique('lans')->ignore($lan), 'max:255'],
+            'info' => 'required|max:5000',
+            'max' => 'required|integer|min:0|max:10000',
+            'date' => ['required', 'date_format:"Y-m-d\TH:i"']
+        ]);
 
-        if($request->hasFile('image')) {
-            $lan->saveThumbnail($request->file('image'));
-        }
-
-        return redirect()->route('lan.show', $lan)->with('alert', 'LAN modifiée avec succès');
+        $lan->update($request->all());
+        return redirect()->route('lan.show', $lan);
     }
 
     /**
-     * Supprime une LAN
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Lan  $lAN
+     * @return \Illuminate\Http\Response
      */
     public function destroy(Lan $lan)
     {
-        $lan->delete();
-        return redirect()->route('lan.index')->with('alert', 'LAN supprimée avec succès');
+        //
+    }
+
+    /**
+     * Appelé quand un utilisateur appuie sur le bouton "s'insrire" d'une LAN
+     */
+    public function register(Lan $lan)
+    {
+        if($lan->users->contains(Auth::user())) {
+            return redirect()->back()
+                ->with('status', 'Vous ne pouvez pas vous inscrire à une LAN où vous êtes déjà inscrit!')
+                ->with('status-type', 'danger');
+        }
+
+        if($lan->noMorePlaces()) {
+            return redirect()->back()
+                ->with('status', "Il n'y a plus de places à cette LAN.")
+                ->with('status-type', 'danger');
+        }
+
+        $lan->users()->save(Auth::user());
+
+
+        return redirect()->back()
+            ->with('status', 'Inscrit avec succès à la LAN')
+            ->with('status-type', 'success');
+    }
+
+    /**
+     * Appelé quand un utilisateur appuie sur le bouton "se désinscrire" d'une LAN
+     */
+    public function unregister(Lan $lan)
+    {
+        if(!$lan->users->contains(Auth::user())) {
+            return redirect()->back()
+                ->with('status', "Vous ne pouvez pas vous désinscrire d'une LAN où vous n'êtes pas inscrit!")
+                ->with('status-type', 'danger');
+        }
+
+        $lan->users()->detach(Auth::user());
+
+        return redirect()->back()
+            ->with('status', 'Désinscrit avec succès à la LAN')
+            ->with('status-type', 'warning');
     }
 }
