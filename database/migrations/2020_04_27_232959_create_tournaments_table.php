@@ -21,7 +21,7 @@ class CreateTournamentsTable extends Migration
             $table->bigInteger('challonge_id');
             $table->string('url');
             $table->string('type');
-            $table->foreignId('lan_id')->constrained('lan');
+            $table->foreignId('lan_id')->constrained('lans');
             /*$table->foreignId('game_id')->constrained('game');*/
         });
 
