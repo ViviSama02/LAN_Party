@@ -20,22 +20,23 @@
 
 \section*{Introduction}
 
-Pour la matière PPRO0605, il nous a été demandé de réalisée une application web de gestion des LANs pour la fac. L'application doit être réaliser en PHP et plus précisément, avec le framework Laravel vu en INFO0303. MySql a été utilisé pour la gestion de la base de données. Dans un premier temps, ce rapport se penchera sur la partie conception de l'application, puis il abordera notre organisation avant de passer à une présentation de l'application.
+Pour la matière PPRO0605, il nous a été demandé de réaliser une application web de gestion des LANs pour la fac. L'application doit être réaliser en PHP et plus précisément, avec le framework Laravel vu en INFO0303. MySql a été utilisé pour la gestion de la base de données. Dans un premier temps, ce rapport se pencheras sur la partie conception de l'application, puis il donneras des explications sur notre implémentation et des détails plus technique.
+
 \tableofcontents
 
 \newpage
 
 \section{Conception et analyse}
-La première tâche a été d'effectuer la conception de l'application pour mieux cerner le sujet, se mettre d'accord sur le sens de certains éléments et avoir notre base pour commencer le développement. La première analyse effectuée est un diagramme de cas d'utilisation, qui nous a permis de se mettre d'accord sur les acteurs de l'application et les actions nécessaires. Puis la réalisation du diagramme de navigation nous permet d'obtenir les relations entre les pages et aussi la liste des vues qu'il sera nécessaire de réaliser. En parallèle nous avons fait l'étude de la base de données à l'aide d'un MCD décrit dans la troisième partie.
+La première tâche a été d'effectuer la conception de l'application pour mieux cerner le sujet, ce mettre d'accord sur le sens de certains éléments et avoir notre base pour commencer le développement. La première analyse effectuée est un diagramme de cas d'utilisation, qui nous a permis de ce mettre d'accord sur les acteurs de l'application et les actions nécessaires. Puis la réalisation du diagramme de navigation nous permet d'obtenir les relations entre les pages et aussi la listes des vues qu'il sera nécessaire de réaliser. En parallèle nous avons fait l'étude de la base de données à l'aide d'un MCD décrit dans la troisième partie.
 \subsection{Cas d'utilisation}
 
-Nous avons identifié trois profils d'utilisateurs dans notre application. Tout d'abord les visiteurs qui ont, de plus que la page d'accueil, accès à la liste des LANs. De plus un visiteur peut se connecter ou s'inscrire. 
+Nous avons identifier trois profils d'utilisateur dans notre application. Tous d'abord les visiteurs qui ont, de plus que la page d'accueil, accès à la liste des LANs. De plus un visiteur peut se connecter ou s'inscrire.
 \newline
 
-Le deuxième type de profil est l'utilisateur, qui peut en plus de voir les LANs, il peut s'y inscrire. Il peut s'inscrire comme joueur ou se proposer pour aider l'organisation. Dans ce cas, il peut possiblement voir les tâches que l'organisation lui donne. 
+Le deuxième type de profil est l'utilisateur, qui peut en plus de voir les LANs,il peut s'y inscrire. Il peut s'inscrire comme joueur ou se proposer pour aider l'organisation. Dans ce cas, il peut possiblement voir les tâches que l'organisation lui donne.
 \newline
 
-Finalement, le dernier profil est celui de l'organisateur, qui peut accéder à la page de gestion des LANs. Il peut décider de créer une LAN, d'en supprimer ou d'en modifier une ou de la publier pour qu'elles apparaissent dans la liste publique et que les utilisateurs puissent la rejoindre.
+Finalement, le dernier profil est celui de l'organisateur, qui peut accéder à la page de gestion des LANs. Il peut décider de créer une LAN, d'en supprimer ou d'en modifier une ou de la publier pour qu'elle apparaissent dans la liste public et que les utilisateurs puissent la rejoindre.
 \newline
 
 En faisant la synthèse des éléments cités précédemment, on obtient le diagramme des cas d'utilisation suivant :
@@ -56,32 +57,32 @@ En faisant la synthèse des éléments cités précédemment, on obtient le diag
 \end{figure}
 
 
-Le site sera donc composé de trois parties, la partie commune à tous les utilisateurs, la partie accessible par les joueur et celle uniquement accessible par les organisateur.
+Le site seras donc composer de trois parties, la partie commune aux trois utilisateur, la partie accessible par les joueur et celle uniquement accessible par les organisateur.
 \newline
 
-Dans la partie commune on retrouve donc la page d'accueil, le système d'inscription/connexion et la liste des LANs publiées dans lesquelles on peut naviguer librement. 
+Dans la partie commune on retrouve donc la page d'accueil, le système d'inscription/connexion et la liste des LANs publiées dans lesquelles ont peut naviguer librement.
 \newline
 
-Lorsque l'on se connecte en tant que joueur, on peut accéder à la liste des LANs mais avec la possibilité d'en rejoindre une. De plus si le joueur se propose comme membre d'organisation, il peut accéder aux tâches que les organisateur auraient pu leur donner. 
+Lorsque l'on se connecte en temps que joueur, on peut accéder à la liste des LANs mais avec la possibilité d'en rejoindre une. De plus si le joueur se propose comme membre d'organisation, il peut accéder aux tâches que les organisateur aurait pu leur donner.
 \newline
 
-Finalement, un organisateur peut accéder à la liste des LANs publiées ou non, et faire toutes les actions possibles sur elles.
+Finalement, un organisateur peut accéder à la liste des LANs publiées ou non, et faire toutes les actions possible sur elles.
 \newpage
 \subsection{Analyse de la base de données}
 
-Notre base de données se compose de deux parties principales : la première contient tous ce qui touche aux utilisateurs, le seconde tous ce qui touche aux LANs. 
+Notre base de données se compose de deux partie principales : la première contient tous se qui touche aux utilisateurs, le seconde tous se qui touche aux LANs.
 \newline
 
-Les utilisateurs ont leurs propres table, mais possèdent aussi une table permettant de modéliser les rôles (joueur ou organisateur), et une table correspondant aux tâches qui peuvent être attribués aux joueurs. 
+Les utilisateurs ont leurs propres table, mais possèdes aussi une tables permettant de modéliser les rôles (joueur ou organisateur), et une table correspondant aux tâches qui peut être attribué aux joueurs.
 \newline
 
-Les LANs, en plus de leur table propre, possèdent des tables pour les tournois, les jeux, le matériel et les salles. 
+Les LANs, en plus de leurs table propre, possèdent des tables pour les tournois, les jeux, le matériel et les salles.
 \newline
 
-Les liens entre ses deux grandes parties sont le fait que les joueurs s'inscrivent aux LANs.
+Les liens entre ses deux grandes partie sont le fait que les joueurs s'inscrivent aux LANs.
 \newline
 
-Voici le MCD que nous avons conçu à partir de ses informations : 
+Voici le MCD que nous avons conçu à partir de ses informations :
 
 \begin{figure}[htp]
 \centering
@@ -92,39 +93,26 @@ Voici le MCD que nous avons conçu à partir de ses informations :
 
 \newpage
 
-\section{Détoulement du développement}
+\section{Déroulement du travail}
 
 \subsection{Organisation}
 
-Bien évidemment, les circonstances actuelles ont eu un important impact sur l'organisation du travail. Nous avons donc organisé notre travail en conséquence car nous uniquement travaillé à distance sur le projet. Pour cela nous avons utilisé pour communiquer le programme Discord. Toutes les décisions ont été prise en ce consultant sur notre conversation. Nous avons privilégié la communication écrite car toutes les conditions n'étaient pas réunies pour organiser les conversations en vocale. Nous effectuions une mise au point tous les quelques jours et prévenons de nos avancements les autres membres du groupe. Pour le partage des sources nous avons utilisé Git et mis en ligne le repo sur GitHub.
+Bien évidemment, les circonstances actuelles ont eu une important impact sur l'organisation du travail. Nous avons donc organisé notre travail en conséquence car nous uniquement travaillé à distance sur le projet. Pour cela nous avons utilisés pour communiquer le programme Discord. Toutes les décisions ont été prise en ce consultant sur notre conversation. Nous avons privilégié la communication écrite car toutes les conditions n'étaient pas réuni pour organisé les conversations en vocale. Nous effectuions une mise au point tous les quelques jours et prévenons de nos avancements les autres membres. Pour le partage des sources nous avons utilisé Git et mis en ligne le repo sur GitHub.
 
 \subsection{Partage du travail}
 
 Nous avons tous d'abord avant de commencer le projet, chacun de notre côté, remis nos mains sur le framework
 Laravel pour reprendre connaissances des différents concepts, leurs mises en place et les changements proposé par la sortie de la version 7 de Laravel.
 
-Dû à la petite taille de notre équipe, nous avons décidé de partager le travail au fur et à mesure de notre progression. 
+Du à la petite taille de notre équipe, nous avons décider de partager le travail au fur et à mesure de notre progression.
 
-La première étape a donc été la phase de conception, décrite dans la première partie de ce rapport. Deux d'entre nous se sont occupé de l'analyse de la base de données pendant que le dernier a établit les cas d'utilisation et le diagramme  de navigation.
-
-Par la suite, nous nous partagions le travail au fur et à mesure. Nous avons donc tous toucher à tous les aspects de l'application mais pas sur les mêmes parties.
-
-\subsection{Problèmes rencontrés et solutions}
-- Problème de matériel (confinement)
-- Problème de fichiers entre IDE et Editeur classique (certains fichiers ne sont pas push)
-
-\subsection{Acquis de chacun}
-- Yempabe: Travailler en équipe réduite demande beaucoup plus d'efforts (et de temps), surtout lors de la condition actuelle. J'ai pu me remettre dans le bain de la programmation web. Et ce projet m'a donné envie d'approfondir mes connaissances dans ce domaine et me donner de nouveaux objectifs.
-
-- Raphaël:
-
-- Paul: Comme mes collègues, le travail à distance avec une équipe de plus de deux personne est une nouveauté pour moi. Malheureusement, la situation actuelle et certains problèmes personnels ne m'ont pas permis de m'investir comme il se doit dans ce projet.
+La première étape à donc été la phase de conception, décrite dans la première partie de ce rapport.
 \newpage
 
 \section{Présentation de l'application}
 
 \subsection{Partie publique}
-Lorsque l'on se connecte à l'application, nous atterrissons sur la page d'accueil. Sur celle-ci nous retrouvons un lien permettant d'accéder à la liste des LANs, ainsi que les liens pour les formulaires de connexion et d'inscription.
+Lorsque l'on se connecte à l'application, nous atterrissons sur la page d'accueil. Sur celle-ci nous retrouvons un liens permettant d'accéder à la liste des LANs, ainsi que les liens pour les formulaires de connexion et d'inscription.
 
 \begin{figure}[H]
 \centering
@@ -155,11 +143,20 @@ Lorsque l'on se connecte à l'application, nous atterrissons sur la page d'accue
 \end{figure}
 
 \subsection{Partie Joueur}
-
-Les joueurs ont accès à la possibilité de rejoindre une LAN depuis la fiche de celle-ci. De plus si le joueur s'est proposé comme aide pour l'organisation, il a accès à la liste des tâches qu'il lui a été affecté par les organisateurs.
-
+Lorsqu'un utilisateur crée son compte ou se connecte, il atterrit sur la page d'accueil. Il peut voir la liste des LANs, créer sa LAN.
 \subsection{Partie Organisateur}
+Un utilisaleur peut participer à l'organisation d'une LAN en cliquant sur un bouton "organiser" associé la LAN correspondante. Il a accès à la liste des différentes tâches et les effectuer.
+Lorsqu'il fini une tâche, il le marque comme effectué.
+\newpage
+\section{Répartition}
+\subsection{Problèmes rencontrés et solutions}
+- Problème de matériel (confinement)
+- Problème de fichiers entre IDE et Editeur classique (certains fichiers ne sont pas push)
 
-L'organisateur as accès au menu de gestion des LANs, permettant de les créer/modifier/supprimer et publier des LANs. 
+\subsection{Acquis de chacun}
+- Yempabe: Travailler en équipe réduite demande beaucoup plus d'efforts (et de temps), surtout lors de la condition actuelle. J'ai pu me remettre dans le bain de la programmation web. Et ce projet m'a donné envie d'approfondir mes connaissances dans ce domaine et me donner de nouveaux objectifs.
 
+- Raphaël:
+
+-Paul:
 \end{document}
