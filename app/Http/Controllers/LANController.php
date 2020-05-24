@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
-class LANController extends Controller
+class LanController extends Controller
 {
     public function __construct()
     {
@@ -22,7 +22,7 @@ class LANController extends Controller
     public function index()
     {
         $lans = Lan::all();
-        return view('lans.liste_lan', compact('lans'));
+        return view('lans/index', compact('lans'));
     }
 
     /**
@@ -54,7 +54,7 @@ class LANController extends Controller
      */
     public function show(Lan $lan)
     {
-        return view('lans.fiche_lan', compact('lan'));
+        return view('lans/show', compact('lan'));
     }
 
     /**
@@ -65,7 +65,7 @@ class LANController extends Controller
      */
     public function edit(Lan $lan)
     {
-        return view('lans/modifier_lan', compact('lan'));
+        return view('lans/edit', compact('lan'));
     }
 
     /**
