@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreLan;
 use App\Lan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -26,21 +27,21 @@ class LanController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * Affiche le formulaire pour créer une nouvelle LAN
      */
     public function create()
     {
+<<<<<<< HEAD
         return view('lans/create');
+=======
+        return view('lans.create');
+>>>>>>> 0b0265f96dbb8b2da7a234b95efb468ae0209acf
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * Enregistre une nouvelle LAN de l'utilisateur après l'avoir créée via le formulaire
      */
+<<<<<<< HEAD
     public function store(Request $request)
     {   if(Auth::check()){
           $this->validate($request,[
@@ -49,6 +50,18 @@ class LanController extends Controller
             'date'=>'required',
             'info'=>'required']);
         }
+=======
+    public function store(StoreLan $request)
+    {
+        $validated = $request->validated();
+        $lan = Auth::user()->lans()->create($validated);
+
+        if($request->hasFile('image')) {
+            $lan->saveThumbnail($request->file('image'));
+        }
+
+        return redirect()->route('lan.show', $lan)->with('alert', 'LAN créée avec succès');
+>>>>>>> 0b0265f96dbb8b2da7a234b95efb468ae0209acf
     }
 
     /**
