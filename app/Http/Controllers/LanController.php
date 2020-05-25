@@ -31,26 +31,12 @@ class LanController extends Controller
      */
     public function create()
     {
-<<<<<<< HEAD
-        return view('lans/create');
-=======
         return view('lans.create');
->>>>>>> 0b0265f96dbb8b2da7a234b95efb468ae0209acf
     }
 
     /**
      * Enregistre une nouvelle LAN de l'utilisateur après l'avoir créée via le formulaire
      */
-<<<<<<< HEAD
-    public function store(Request $request)
-    {   if(Auth::check()){
-          $this->validate($request,[
-            'nom'=>'required',
-            'max'=>'required',
-            'date'=>'required',
-            'info'=>'required']);
-        }
-=======
     public function store(StoreLan $request)
     {
         $validated = $request->validated();
@@ -61,7 +47,6 @@ class LanController extends Controller
         }
 
         return redirect()->route('lan.show', $lan)->with('alert', 'LAN créée avec succès');
->>>>>>> 0b0265f96dbb8b2da7a234b95efb468ae0209acf
     }
 
     /**

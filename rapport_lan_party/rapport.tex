@@ -29,10 +29,10 @@ Pour la matière PPRO0605, il nous a été demandé de réalisée une applicatio
 La première tâche a été d'effectuer la conception de l'application pour mieux cerner le sujet, se mettre d'accord sur le sens de certains éléments et avoir notre base pour commencer le développement. La première analyse effectuée est un diagramme de cas d'utilisation, qui nous a permis de se mettre d'accord sur les acteurs de l'application et les actions nécessaires. Puis la réalisation du diagramme de navigation nous permet d'obtenir les relations entre les pages et aussi la liste des vues qu'il sera nécessaire de réaliser. En parallèle nous avons fait l'étude de la base de données à l'aide d'un MCD décrit dans la troisième partie.
 \subsection{Cas d'utilisation}
 
-Nous avons identifié trois profils d'utilisateurs dans notre application. Tout d'abord les visiteurs qui ont, de plus que la page d'accueil, accès à la liste des LANs. De plus un visiteur peut se connecter ou s'inscrire. 
+Nous avons identifié trois profils d'utilisateurs dans notre application. Tout d'abord les visiteurs qui ont, de plus que la page d'accueil, accès à la liste des LANs. De plus un visiteur peut se connecter ou s'inscrire.
 \newline
 
-Le deuxième type de profil est l'utilisateur, qui peut en plus de voir les LANs, il peut s'y inscrire. Il peut s'inscrire comme joueur ou se proposer pour aider l'organisation. Dans ce cas, il peut possiblement voir les tâches que l'organisation lui donne. 
+Le deuxième type de profil est l'utilisateur, qui peut en plus de voir les LANs, il peut s'y inscrire. Il peut s'inscrire comme joueur ou se proposer pour aider l'organisation. Dans ce cas, il peut possiblement voir les tâches que l'organisation lui donne.
 \newline
 
 Finalement, le dernier profil est celui de l'organisateur, qui peut accéder à la page de gestion des LANs. Il peut décider de créer une LAN, d'en supprimer ou d'en modifier une ou de la publier pour qu'elles apparaissent dans la liste publique et que les utilisateurs puissent la rejoindre.
@@ -59,29 +59,29 @@ En faisant la synthèse des éléments cités précédemment, on obtient le diag
 Le site sera donc composé de trois parties, la partie commune à tous les utilisateurs, la partie accessible par les joueur et celle uniquement accessible par les organisateur.
 \newline
 
-Dans la partie commune on retrouve donc la page d'accueil, le système d'inscription/connexion et la liste des LANs publiées dans lesquelles on peut naviguer librement. 
+Dans la partie commune on retrouve donc la page d'accueil, le système d'inscription/connexion et la liste des LANs publiées dans lesquelles on peut naviguer librement.
 \newline
 
-Lorsque l'on se connecte en tant que joueur, on peut accéder à la liste des LANs mais avec la possibilité d'en rejoindre une. De plus si le joueur se propose comme membre d'organisation, il peut accéder aux tâches que les organisateur auraient pu leur donner. 
+Lorsque l'on se connecte en tant que joueur, on peut accéder à la liste des LANs mais avec la possibilité d'en rejoindre une. De plus si le joueur se propose comme membre d'organisation, il peut accéder aux tâches que les organisateur auraient pu leur donner.
 \newline
 
 Finalement, un organisateur peut accéder à la liste des LANs publiées ou non, et faire toutes les actions possibles sur elles.
 \newpage
 \subsection{Analyse de la base de données}
 
-Notre base de données se compose de deux parties principales : la première contient tous ce qui touche aux utilisateurs, le seconde tous ce qui touche aux LANs. 
+Notre base de données se compose de deux parties principales : la première contient tous ce qui touche aux utilisateurs, le seconde tous ce qui touche aux LANs.
 \newline
 
-Les utilisateurs ont leurs propres table, mais possèdent aussi une table permettant de modéliser les rôles (joueur ou organisateur), et une table correspondant aux tâches qui peuvent être attribués aux joueurs. 
+Les utilisateurs ont leurs propres table, mais possèdent aussi une table permettant de modéliser les rôles (joueur ou organisateur), et une table correspondant aux tâches qui peuvent être attribués aux joueurs.
 \newline
 
-Les LANs, en plus de leur table propre, possèdent des tables pour les tournois, les jeux, le matériel et les salles. 
+Les LANs, en plus de leur table propre, possèdent des tables pour les tournois, les jeux, le matériel et les salles.
 \newline
 
 Les liens entre ses deux grandes parties sont le fait que les joueurs s'inscrivent aux LANs.
 \newline
 
-Voici le MCD que nous avons conçu à partir de ses informations : 
+Voici le MCD que nous avons conçu à partir de ses informations :
 
 \begin{figure}[htp]
 \centering
@@ -103,7 +103,7 @@ Bien évidemment, les circonstances actuelles ont eu un important impact sur l'o
 Nous avons tous d'abord avant de commencer le projet, chacun de notre côté, remis nos mains sur le framework
 Laravel pour reprendre connaissances des différents concepts, leurs mises en place et les changements proposé par la sortie de la version 7 de Laravel.
 
-Dû à la petite taille de notre équipe, nous avons décidé de partager le travail au fur et à mesure de notre progression. 
+Dû à la petite taille de notre équipe, nous avons décidé de partager le travail au fur et à mesure de notre progression.
 
 La première étape a donc été la phase de conception, décrite dans la première partie de ce rapport. Deux d'entre nous se sont occupé de l'analyse de la base de données pendant que le dernier a établit les cas d'utilisation et le diagramme  de navigation.
 
@@ -206,10 +206,17 @@ Il a été plus compliqué de générer des relations (par exemple, les utilisat
 
 Pour les images factices, nous avons choisi d'utiliser le site placeholder.com qui met à disposition une image d'une seule couleur avec un texte prenant la taille que l'on veut, jusqu'à plus de 3000 pixels. Pour des images plus réalistes, on a pu utiliser le site picsum.photos qui propose des vraies images aléatoires de la résolution souhaitée.
 
+\subsection{Parties manquantes}
+Comme nous le disions, les difficultés que nous avions rencontrés ont fait que toutes les parties de ce projet n'ont pas pu été réalisés.
+
+- La réalisation du profil utilisateur
+- La partie organisation de LAN (postuler à la réalisation d'une tâche)
+- Ajout de jeux dans une LAN
+
 \subsection{Amélioration possibles}
 
 Il a été envisagé d'utiliser un autre site pour récupérer les noms de jeux déjà existant, ce qui permet à l'organisateur de chercher un jeu dans une base de données afin d'en récupérer toutes les informations nécessaires (images, nombre de joueurs, réseau, plage de ports, etc...). Mais la documentation n'était pas forcément à jour ni très précise sur l'utilisation par rapport à la version actuelle, et peu voir pas de ressources étaient présentes pour apprendre à l'utiliser. C'est pourquoi nous n'avons pas pu l'intégrer.
 
-Nous avons pu grâce à différents outils (Bootstrap, jQuery) créer des vues réactives. Celles-çi sont de plus adaptées à la naviguation sur téléphone portable (responsive design grâce à Bootstrap) et il serait possible d'augmenter le dynamisme des pages web avec l'utilisation de JavaScript. Tout ce que l'on fait est possible avec des simples formulaires html/php, mais l'utilisation d'AJaX permet de rendre les formulaires plus réactifs avec plus de fluidité avec en contrepartie seulement un coût en calcul côté client, qui est cependant relativement léger, et donc qui n'aurait pas beaucoup altéré la naviguation sur téléphone, et un développement supplémentaire côté serveur, si nous avions eu le temps: En effet cela aurait nécessité le développement d'une API pour l'application, même si ce n'est pas obligatoire cela aurait été la choix optimal, ce que Laravel d'après la documentation peut sans doute permettre. Nous n'avons cependant pas eu l'occasion d'apprendre cette partie de Laravel, développant d'autres parties de la gestion de l'application.
+Nous avons pu grâce à différents outils (Bootstrap, jQuery) créer des vues réactives. Celles-çi sont de plus adaptées à la naviguation sur téléphone portable (responsive design grâce à Bootstrap) et il serait possible d'augmenter le dynamisme des pages web avec l'utilisation de JavaScript. Tout ce que l'on fait est possible avec des simples formulaires html/php, mais l'utilisation d'AJaX permet de rendre les formulaires plus réactifs avec plus de fluidité avec en contrepartie seulement un coût en calcul côté client, qui est cependant relativement léger, et donc qui n'aurait pas beaucoup altéré la navigation sur téléphone, et un développement supplémentaire côté serveur, si nous avions eu le temps: En effet cela aurait nécessité le développement d'une API pour l'application, même si ce n'est pas obligatoire cela aurait été la choix optimal, ce que Laravel d'après la documentation peut sans doute permettre. Nous n'avons cependant pas eu l'occasion d'apprendre cette partie de Laravel, développant d'autres parties de la gestion de l'application.
 
 \end{document}
