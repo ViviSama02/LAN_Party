@@ -1,4 +1,4 @@
-@extends('layouts.form')
+@extends('layouts.app')
 @php
     if(isset($lan)) {
         $edit = true;

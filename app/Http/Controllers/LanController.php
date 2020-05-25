@@ -32,7 +32,7 @@ class LanController extends Controller
      */
     public function create()
     {
-        //
+        return view('lans/create');
     }
 
     /**
@@ -42,8 +42,13 @@ class LanController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
+    {   if(Auth::check()){
+          $this->validate($request,[
+            'nom'=>'required',
+            'max'=>'required',
+            'date'=>'required',
+            'info'=>'required']);
+        }
     }
 
     /**

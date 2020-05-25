@@ -30,4 +30,7 @@ class HomeController extends Controller
     {
         return view('auth.dashboard');
     }
+    public function profile(){
+      return view('utilisateur.profile');
+    }
 }
