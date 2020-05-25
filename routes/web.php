@@ -73,7 +73,7 @@ Route::get('/test', function() {
     ]);
 
     $res = $client->request('POST', 'https://api-v3.igdb.com/games', [
-        'body' => 'fields name,id; sort popularity desc; where name ~ *"Starcraft"*;'
+        'body' => 'fields name,id; sort popularity desc; where name ~ *"Mario"*;'
     ]);
 
     $json = json_decode($res->getBody());
